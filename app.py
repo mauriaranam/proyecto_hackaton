@@ -93,7 +93,11 @@ class Recetas (db.Model):
 with app.app_context():
     db.create_all()
 
-#Creamos una ruta para el login
+@app.route('/')
+def index(): 
+    return render_template('home.html')
+    
+#Creamos una ruta para el registro
 #Get trae las cosas del back
 #Post lleva las cosas al back
 @app.route('/register', methods = ['GET', 'POST'])
@@ -214,10 +218,6 @@ def home ():
 
     return render_template('pagina_principal.html', consultas=query_consultas)
 
-if __name__ == '__main__': 
-    current_user = None 
-    app.run (debug=True)
-
 
 @app.route('/agenda', methods = ['GET', 'POST'])
 def agenda():
@@ -226,8 +226,12 @@ def agenda():
     # print(consultas[0].doctor)
     return render_template('pagina_principal.html', consultas=query_consultas)
     
-        
 
 
 
+
+
+if __name__ == '__main__': 
+    current_user = None 
+    app.run (debug=True)
 

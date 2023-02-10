@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Registro o Logeo</title>
+</head>
+<body>
+    <!-- header-->
+    <header class="bg-gradient-to-r from-green-200 to-slate-50 shadow-lg ">
+      <nav class="mx-auto max-w-7xl px-6 lg:px-8" aria-label="Top">
+        <div class="flex w-full items-center justify-between py-6 lg:border-none">
+          <div class="flex items-center">
+            <a href="#">
+              <span class="sr-only">DoctorTito</span>
+              <img class="h-14 w-auto" src="./static/logo.png" alt="">
+            </a>
+            
+          </div>
+          <div class="ml-10 space-x-4">
+            <a href="{{url_for('login')}}" class="inline-block rounded-md border border-transparent bg-blue-700 py-2 px-4 text-base font-medium text-slate-200  hover:bg-opacity-75 shadow-lg">Iniciar sesion</a>
+            <a href="{{url_for('register')}}" class="inline-block rounded-md border border-transparent bg-blue-700 py-2 px-4 text-base font-medium text-slate-200 hover:bg-opacity-75 shadow-lg">Crear cuenta</a>
+          </div>
+        </div>
+      </nav>
+  </header>
+    <!--fin del header-->
+    <!--saludo-->
+    <section class="overflow-hidden bg-gray-50 py-12 md:py-20 lg:py-24">
+        <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <svg class="absolute top-full right-full translate-x-1/3 -translate-y-1/4 transform lg:translate-x-1/2 xl:-translate-y-1/2" width="404" height="404" fill="none" viewBox="0 0 404 404" role="img" aria-labelledby="svg-workcation">
+            <defs>
+              <pattern id="ad119f34-7694-4c31-947f-5c9d249b21f3" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="4" height="4" class="text-blue-700" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="404" height="404" fill="url(#ad119f34-7694-4c31-947f-5c9d249b21f3)" />
+          </svg>
+      
+          <div class="relative">
+            <img class="mx-auto h-28" src="./static/logo.png" alt="Workcation">
+            <blockquote class="mt-10">
+              
+              <div class="mx-auto max-w-3xl text-center text-2xl font-medium leading-9 text-gray-900">
+                <p class= "m-8">DoctorTito</p>
+                <p >&ldquo;DoctorTito es una web app que te brinda toda la informacion necesaria, digitalizada y actualizada pudiendo acceder desde cualquier lugar en cualquier momento&rdquo;</p>
+              </div>
+              
+            </blockquote>
+          </div>
+        </div>
+      </section>
+    <!-- fin del saludo-->
+    <div class="bg-gray-50 py-16 lg:py-24">
+        <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="relative overflow-hidden rounded-xl bg-blue-700 py-24 px-8 shadow-2xl lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-16">
+            <div class="absolute inset-0 opacity-50 mix-blend-multiply saturate-0 filter">
+              <img src="./static/estudiantes.jpg" alt="" class="h-full w-full object-cover">
+            </div>
+            <div class="relative lg:col-span-1">
+              <blockquote class="mt-6 text-white">
+                <p class="text-xl font-medium sm:text-2xl">Esta app web fue echa por nuestro equipo con los conocimientos obtenidos del bootcamp de Penguin Academy, sin ninguna base de lo que fue programacion siendo asi una experiencia totalmente nueva y motivadora</p>
+                <footer class="mt-6">
+                  <p class="flex flex-col font-medium">
+                    Equipo slytherin, primer bootcamp de Enero del 2023 en Alto Paraná
+                  </p>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+
+</body>
+</html>

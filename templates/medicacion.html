@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Medicaciones</title>
-  </head>
-  <body>
-    <h1>Recetas</h1>
-    <form action="" method="post">
-      <input
-        type="number"
-        name="hora_inicial"
-        placeholder="Hora para empezar a tomar"
-      />
-      <input
-        type="text"
-        name="medicamento"
-        placeholder="Ingrese el medicamento"
-      />
-      <input type="text" name="motivo" placeholder="Ingrese el motivo" />
-      <input type="text" name="cada_hora" placeholder="Cada cuantas horas" />
-      <input type="text" name="dias_a_tomar" placeholder="Por cuantos dias" />
-      <input type="submit" value="Agregar Horario de medicacion" />
-    </form>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Datos personales</title>
+</head>
+<body class="bg-gradient-to-r from-green-100">
+<div class="bg-gray-100 ">
+    <div class="mx-auto max-w-7xl py-16 px-6 sm:py-24 lg:px-8">
+      <div class="relative bg-gradient-to-r from-green-100 shadow-xl">
+        <h2 class="sr-only">Contact us</h2>
+  
+        <div class="grid grid-cols-1 lg:grid-cols-3">
+          <!-- Contact information -->
+          
+            
+            
+  
+          <!-- Contact form -->
+          <div class="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
+            <h3 class="text-lg font-medium text-gray-900">Datos del Paciente</h3>
+            <form action="#" method="POST" class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+              <div>
+                <label for="medicamento" class="block text-sm font-medium text-gray-900">Medicamento</label>
+                <div class="mt-1">
+                  <input type="text" name="medicamento" id="medicamento" class="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+              </div>
+              <div>
+                <label for="last-name" class="block text-sm font-medium text-gray-900">Hora de Inicio</label>
+                <div class="mt-1">
+                  <input type="number" name="hora_inicial" class="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+              </div>
+              <div>
+                <label for="text" class="block text-sm font-medium text-gray-900">Motivo</label>
+                <div class="mt-1">
+                  <input id="motivo" name="motivo" type="text" class="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+              </div>
+              <div >
+                <div>
+                  <label for="cada_hora" class="block text-sm font-medium text-gray-900">Cada cuantas horas?</label> 
+                  <div class="mt-1">
+                      
+                      <input type="text" name="cada_hora" id="cada_hora" class="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
+                    </div>  
+                  </div>
+              <!-- aqui-->
+              </div> 
+            <div>
+                <label for="text" class="block text-sm font-medium text-gray-900">Duración del Tratamiento</label>
+                <div class="mt-1">
+                  <input id="text" name="dias_a_tomar" type="text"  class="block w-full rounded-md border-gray-300 py-3 px-4 text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                </div>
+            </div>
+            <div>
+              <input type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" value="Ingresar">
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
 </html>
