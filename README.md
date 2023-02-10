@@ -1,2 +1,2 @@
-# proyecto_hackaton
-Hackaton
+# proyecto_hackathon
+Hackathon
