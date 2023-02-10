@@ -3,9 +3,6 @@ from flask import Flask, request, render_template, redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
-
-
-
 #Creamos una app flask
 app = Flask(__name__)
 #Creamos el modelo de la db del usuario
@@ -130,7 +127,7 @@ def login():
             if usuario_db.password == password:
                 global current_user 
                 current_user = usuario_db.id
-                return 'hola'
+                return redirect(url_for('home'))
             else:
                 return redirect(url_for('login'))
         elif usuario_db is None:
@@ -154,7 +151,7 @@ def ficha():
         ficha_de_usuario = Ficha(nombre_completo, edad, peso, estatura, ci, id_usuario, tipo_de_sangre)
         db.session.add(ficha_de_usuario)
         db.session.commit()
-        return f'<h1> Su registro fue un exito <h1>'
+        return redirect(url_for('home'))
     return render_template('ficha.html')
 
 @app.route('/consultas', methods = ['GET', 'POST'])
@@ -171,11 +168,11 @@ def consultas():
         agregar_consultas = Consultas(doctor, hora, fecha, motivo, id_usuario)
         db.session.add(agregar_consultas)
         db.session.commit()
-        return "Consulta agendada con exito"
+        return redirect(url_for('home'))
     return render_template('consultas.html')
 
 @app.route('/medicacion', methods = ['GET', 'POST'])
-def receta():
+def medicacion():
     if request.method == 'POST':
         # print('aaaaaaaaaaaaaaaaaaaaaaaa')
         medicamento = request.form ['medicamento']
@@ -193,6 +190,7 @@ def receta():
 
         lista_horarios = receta(int(hora_inicial_de_toma), int(cada_hora_a_tomar))
         print(lista_horarios)
+        return redirect(url_for('home'))
     return render_template('medicacion.html')
 
 def receta(hora_inicial_de_toma, cada_hora_a_tomar):
@@ -208,12 +206,28 @@ def receta(hora_inicial_de_toma, cada_hora_a_tomar):
         lista.append(hora_a_tomar)
     return lista 
 
+@app.route ('/home')
+def home ():
+    # Buscar todas las consultas de ese usuario 
+    query_consultas = Consultas.query.filter_by(id_usuario = current_user).all()
+    # print(consultas[0].doctor)
+
+    return render_template('pagina_principal.html', consultas=query_consultas)
+
 if __name__ == '__main__': 
     current_user = None 
     app.run (debug=True)
 
-   
+
+@app.route('/agenda', methods = ['GET', 'POST'])
+def agenda():
+    # Buscar todas las consultas de ese usuario 
+    query_consultas = Consultas.query.filter_by(id_usuario = current_user).all()
+    # print(consultas[0].doctor)
+    return render_template('pagina_principal.html', consultas=query_consultas)
     
+        
+
 
 
 
