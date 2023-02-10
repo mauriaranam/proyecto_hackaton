@@ -35,37 +35,45 @@ class Usuario (db.Model):
 #FICHA DEL USUARIO
 class Ficha (db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     nombre_completo = db.Column(db.String(50), nullable=False)
     edad = db.Column(db.Integer, nullable=False)
     peso = db.Column(db.Float, nullable=False)
     estatura = db.Column(db.Float, nullable=False)
     ci = db.Column(db.Integer, nullable=False)
+    tipo_de_sangre = db.Column(db.String(10)) 
 
-    def __init__ (self,nombre_completo, edad, peso, estatura, ci):
+    def __init__ (self,nombre_completo, edad, peso, estatura, ci, id_usuario, tipo_de_sangre):
         self.nombre_completo = nombre_completo
         self.edad = edad
         self.peso = peso
         self.estatura = estatura
         self.ci = ci
+        self.id_usuario = id_usuario
+        self.tipo_de_sangre = tipo_de_sangre
 
 
 #BASE DE DATOS DE CONSULTAS
 class Consultas (db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    # usuario se refiere a la clase 
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     doctor = db.Column(db.String(30), nullable=False)
     hora = db.Column(db.String, nullable=False)
     fecha = db.Column(db.String, nullable=False)
     motivo = db.Column(db.String(30), nullable=False)
 
     #Creamos el constructor de clase
-    def __init__ (self,doctor, hora, fecha, motivo):
+    def __init__ (self,doctor, hora, fecha, motivo, id_usuario):
         self.doctor = doctor
         self.hora = hora
         self.fecha = fecha
         self.motivo = motivo
+        self.id_usuario = id_usuario
 
 class Recetas (db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     medicamento = db.Column(db.String(35), nullable=False)
     motivo = db.Column(db.String, nullable=False)
     fecha_de_inicio = db.Column(db.String(30), nullable=False)
@@ -73,13 +81,14 @@ class Recetas (db.Model):
     hora_entre_cada_toma = db.Column(db.String(3), nullable=False)
     dias_a_tomar = db.Column(db.String(5), nullable=False)
     
-    def __init__ (self,medicamento, motivo, fecha_de_inicio, hora_inicio_toma, hora_entre_cada_toma, dias_a_tomar):
+    def __init__ (self,medicamento, motivo, fecha_de_inicio, hora_inicio_toma, hora_entre_cada_toma, dias_a_tomar, id_usuario):
         self.medicamento = medicamento
         self.motivo = motivo
         self.fecha_de_inicio = fecha_de_inicio
         self.hora_inicio_toma = hora_inicio_toma
         self.hora_entre_cada_toma = hora_entre_cada_toma
         self.dias_a_tomar = dias_a_tomar
+        self.id_usuario = id_usuario
     
 
 
@@ -105,6 +114,9 @@ def register():
         db.session.add(usuario)
         #Confirmo con el commit
         db.session.commit()
+
+        global current_user
+        current_user = usuario.id 
         return redirect(url_for('ficha'))
     return render_template('register.html')
 
@@ -116,6 +128,8 @@ def login():
         usuario_db = Usuario.query.filter_by(email=email).first()
         if usuario_db is not None:
             if usuario_db.password == password:
+                global current_user 
+                current_user = usuario_db.id
                 return 'hola'
             else:
                 return redirect(url_for('login'))
@@ -132,7 +146,12 @@ def ficha():
         peso = request.form ['peso']
         estatura = request.form ['estatura']
         ci = request.form ['ci']
-        ficha_de_usuario = Ficha(nombre_completo, edad, peso, estatura, ci)
+        tipo_de_sangre = request.form ['tipo_de_sangre']
+
+        global current_user 
+        id_usuario = current_user
+
+        ficha_de_usuario = Ficha(nombre_completo, edad, peso, estatura, ci, id_usuario, tipo_de_sangre)
         db.session.add(ficha_de_usuario)
         db.session.commit()
         return f'<h1> Su registro fue un exito <h1>'
@@ -145,7 +164,11 @@ def consultas():
         hora = request.form ['hora']
         fecha = request.form ['fecha']
         motivo = request.form ['motivo']
-        agregar_consultas = Consultas(doctor, hora, fecha, motivo)
+
+        global current_user 
+        id_usuario = current_user
+
+        agregar_consultas = Consultas(doctor, hora, fecha, motivo, id_usuario)
         db.session.add(agregar_consultas)
         db.session.commit()
         return "Consulta agendada con exito"
@@ -154,13 +177,17 @@ def consultas():
 @app.route('/medicacion', methods = ['GET', 'POST'])
 def receta():
     if request.method == 'POST':
-        print('aaaaaaaaaaaaaaaaaaaaaaaa')
+        # print('aaaaaaaaaaaaaaaaaaaaaaaa')
         medicamento = request.form ['medicamento']
         hora_inicial_de_toma = request.form ['hora_inicial']
         cada_hora_a_tomar = request.form ['cada_hora']
         motivo = request.form['motivo']
         dias_a_tomar = request.form['dias_a_tomar']
-        agregar_medicacion = Recetas(medicamento, motivo, hora_inicial_de_toma, hora_inicial_de_toma, cada_hora_a_tomar, dias_a_tomar)
+
+        global current_user 
+        id_usuario = current_user
+
+        agregar_medicacion = Recetas(medicamento, motivo, hora_inicial_de_toma, hora_inicial_de_toma, cada_hora_a_tomar, dias_a_tomar, id_usuario)
         db.session.add(agregar_medicacion)
         db.session.commit()
 
@@ -181,7 +208,9 @@ def receta(hora_inicial_de_toma, cada_hora_a_tomar):
         lista.append(hora_a_tomar)
     return lista 
 
-
+if __name__ == '__main__': 
+    current_user = None 
+    app.run (debug=True)
 
    
     
